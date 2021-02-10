@@ -1,0 +1,13 @@
+global:
+  slack_api_url: 'https://hooks.slack.com/services/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'
+
+route:
+  receiver: 'slack-notifications'
+  group_by: [example, proxiaczki]
+
+receivers:
+- name: 'slack-notifications'
+  slack_configs:
+  - channel: '#notifications'
+    title: "{{ range .Alerts }}{{ .Annotations.summary }}\n{{ end }}"
+    text: "{{ range .Alerts }}{{ .Annotations.description }}\n{{ end }}"

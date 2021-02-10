@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  loki:
+    image: grafana/loki:2.0.0
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./loki-config.yaml:/etc/loki/local-config.yaml
+    command: -config.file=/etc/loki/local-config.yaml
+
+
+  promtail:
+    image: grafana/promtail:2.0.0
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers
+      - ./promtail-config.yaml:/etc/promtail/config.yml
+    command: -config.file=/etc/promtail/config.yml
+
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+
+

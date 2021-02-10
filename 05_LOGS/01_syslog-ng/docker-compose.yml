@@ -1,0 +1,37 @@
+version: '2'
+services:
+  www1:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    depends_on: 
+      - syslog
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://127.0.0.1:5514"
+        syslog-format: "rfc3164"
+        tag: "http1"
+
+  www2:
+    image: nginx:alpine
+    ports:
+      - "81:80"
+    depends_on: 
+      - syslog
+    logging:
+      driver: syslog
+      options:
+        syslog-address: "tcp://127.0.0.1:5514"
+        syslog-format: "rfc3164"
+        tag: "http2"
+
+  syslog:
+    image: balabit/syslog-ng:latest
+    restart: always
+    ports: 
+      - "5514:514"
+    command: -F --no-caps
+    volumes:
+      - "./logs/:/var/log/syslogng/"
+      - "./syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf"

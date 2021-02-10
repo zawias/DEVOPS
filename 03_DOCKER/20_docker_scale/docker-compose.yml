@@ -1,0 +1,32 @@
+version: '2'
+services:
+  web:
+    build: ./
+    networks:
+      - front-tier
+      - back-tier
+    labels:
+      - "traefik.frontend.rule=Path: /"
+      - "traefik.port=80"
+      - "traefik.docker.network=04_docker_scale_front-tier"
+
+  redis:
+    image: redis
+    networks:
+      - back-tier
+
+  lb:
+    image: traefik:1.7
+    command: --docker --docker.watch
+    ports:
+      - 80:80
+    networks:
+      - front-tier
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock 
+
+networks:
+  front-tier:
+    driver: bridge
+  back-tier:
+    driver: bridge

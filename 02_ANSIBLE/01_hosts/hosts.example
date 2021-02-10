@@ -1,0 +1,3 @@
+[servers]
+serverek1 ansible_port=22 ansible_host=46.101.251.68 ansible_user=root
+

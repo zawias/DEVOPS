@@ -1,0 +1,13 @@
+groups:
+- name: proxiaczki
+  rules:
+
+  # Alert for any instance that is unreachable for >5 minutes.
+  - alert: TooManyRequests
+    expr: ceil(increase(nginx_http_requests_total{job="nginx"}[1m])) > 5
+    for: 1m
+    labels:
+      severity: fatal
+    annotations:
+      summary: "Too much requests"
+      description: "Too much requests for last 1 minute."
