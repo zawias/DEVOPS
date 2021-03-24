@@ -37,14 +37,14 @@ kind: Ingress
 metadata:
   name: pk
   annotations:
-    cert-manager.io/issuer: "letsencrypt-prod"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   tls:
   - hosts:
-    - pk-pk.52-232-21-99.nip.io
-    secretName: tls-demo.52-232-21-99-nip-io
+    - szkolenie.138.68.66.235.nip.io
+    secretName: tls-demo-signed
   rules:
-    - host: pk-pk.52-232-21-99.nip.io
+    - host: szkolenie.138.68.66.235.nip.io
       http:
         paths:
         - backend:
