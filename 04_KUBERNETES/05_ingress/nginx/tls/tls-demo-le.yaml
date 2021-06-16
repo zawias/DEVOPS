@@ -1,52 +1,23 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: pk
-spec:
-  selector:
-    matchLabels:
-      app: pk
-  template:
-    metadata:
-      labels:
-        app: pk
-    spec:
-      containers:
-      - name: demo
-        image: poznajkubernetes/pkad:blue
-        resources: {}
-        ports:
-        - containerPort: 8080
-          name: http
----
-kind: Service
-apiVersion: v1
-metadata:
-  name: pk
-spec:
-  selector:
-    app: pk
-  type: ClusterIP
-  ports:
-  - name: http
-    port: 80
-    targetPort: http
----
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: pk
+  name: python
   annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   tls:
   - hosts:
-    - szkolenie.138.68.66.235.nip.io
-    secretName: tls-demo-signed
+    - demo.134.122.64.99.nip.io
+    secretName: example-tls
   rules:
-    - host: szkolenie.138.68.66.235.nip.io
-      http:
-        paths:
-        - backend:
-            serviceName: pk
-            servicePort: 80
+  - host: demo.134.122.64.99.nip.io
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: app-service
+            port:
+              number: 80

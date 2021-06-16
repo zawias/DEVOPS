@@ -13,7 +13,10 @@ pip3 install --no-cache-dir -r requirements.txt
 ### To run the app
 
 Define REDIS_HOST env and run the app
-`python3 main.py`
+```sh
+export REDIS_HOST=127.0.0.1
+python3 main.py
+```
 
 Application is running on port 5002 and delivers to endpoints
 

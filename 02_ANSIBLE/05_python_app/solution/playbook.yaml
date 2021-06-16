@@ -1,0 +1,36 @@
+- name: install python application
+  remote_user: root
+  hosts: all
+  gather_facts: false
+  vars:
+    python_app_dir: /root/python
+  tasks:
+  - name: install packages
+    apt:
+      name:
+        - python3 
+        - redis 
+        - python3-pip
+      update_cache: yes
+      install_recommends: no
+  - name: copy python app
+    copy:
+      src: /root/DEVOPS/01_BASH/Python_app/
+      dest: "{{ python_app_dir }}"
+  - name: install python requriments
+    shell:
+      cmd: pip3 install --no-cache-dir -r requirements.txt
+      chdir: "{{ python_app_dir }}"
+  - name: install python service
+    template:
+      src: ./python-service.tpl
+      dest: /lib/systemd/system/python-api.service
+    notify:
+      - reload demon
+  handlers:
+    - name: reload demon
+      systemd:
+        state: restarted
+        daemon_reload: yes
+        name: python-api.service
+        enabled: yes

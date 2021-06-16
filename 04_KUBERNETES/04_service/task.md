@@ -1,15 +1,14 @@
 # Recreate Python+Redis on Kubernetes
 
-1. Push python-api:redis image to local repository
-2. Create Deployment yaml file for redis 
-3. Create Deployment yaml file for python-api:redis from local repository
-4. Set LOG_LEVEL env to DEBUG on python deployment
-5. Set REDIS_HOST env to name of redis service
-7. Make sure all ports are correct
-8. Use proper labels
-9. Create service yaml file for redis without NodePort type
-10. Create service yaml file for python with NodePort type
-11. Create everything at once with:
+1. Create Deployment yaml file for redis 
+2. Create Deployment yaml file for krajewskim/python-api:redis
+3. Set LOG_LEVEL env to DEBUG on python deployment
+4. Set REDIS_HOST env to name of redis service
+5. Make sure all ports are correct
+6. Use proper labels
+7. Create service yaml file for redis without NodePort type
+8.  Create service yaml file for python with NodePort type
+9.  Create everything at once with:
 
 ```sh
 kubectl create -f .

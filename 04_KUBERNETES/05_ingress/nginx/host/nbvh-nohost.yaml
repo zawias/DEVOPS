@@ -14,7 +14,7 @@ kind: Deployment
 metadata:
   name: helloapp-nbvh-nohost-dep
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: helloapp-nbvh-nohost-dep
@@ -25,6 +25,6 @@ spec:
     spec:
       containers:
       - name: helloapp-nbvh-nohost-dep
-        image: poznajkubernetes/helloapp:multi
+        image: nginx
         ports:
         - containerPort: 8080
