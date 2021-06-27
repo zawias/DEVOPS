@@ -1,0 +1,16 @@
+- name: install new website
+  remote_user: root
+  hosts: all
+  tasks:
+  - name: install nginx
+    apt:
+      name: nginx
+      update_cache: yes
+  - name: remove standard nginx index.html file
+    file:
+      path: /var/www/html/index.nginx-debian.html
+      state: absent
+  - name: copy new webiste
+    copy:
+      src: ./website/
+      dest: /var/www/html/

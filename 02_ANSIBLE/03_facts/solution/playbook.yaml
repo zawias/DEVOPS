@@ -1,0 +1,16 @@
+- name: install new website
+  remote_user: root
+  hosts: all
+  tasks:
+  - name: install nginx on {{ ansible_facts.distribution }}
+    apt:
+      name: nginx
+      update_cache: yes
+    when: ansible_facts.distribution == "Ubuntu"
+  - name: gather system variable
+    shell:
+      cmd: date
+    register: system_date
+  - name: put variable into /root/output
+    shell:
+      cmd: echo {{ system_date.stdout }} > /root/output
