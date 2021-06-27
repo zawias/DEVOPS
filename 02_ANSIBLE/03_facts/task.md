@@ -2,7 +2,7 @@
 
 Basing on the file `playbook.yaml` in previous task
 1. install nginx only if operating system is ubuntu (use `when` stating propper fact)
-2. put version the output of command `date` into `/root/output`
+2. put the output of command `date` into `/root/output`
 
 
 Find the propper modules from here https://docs.ansible.com/ansible/latest/collections/ansible/builtin/index.html#plugins-in-ansible-builtin
