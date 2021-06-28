@@ -9,8 +9,9 @@
     when: ansible_facts.distribution == "Ubuntu"
   - name: gather system variable
     shell:
-      cmd: date
-    register: system_date
-  - name: put variable into /root/output
-    shell:
-      cmd: echo {{ system_date.stdout }} > /root/output
+      cmd: date > /root/output
+  - name: get file
+    fetch:
+      src: /root/output
+      dest: /root/output
+      flat: yes
