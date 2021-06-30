@@ -11,6 +11,7 @@
 Verify with curl endpoints (don't forget about port!)
 
 `/healthz`
+
 `/api/v1/info`
 
 # Update LOG LEVEL to DEBUG in run command
