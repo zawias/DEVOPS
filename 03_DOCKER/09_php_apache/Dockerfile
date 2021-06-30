@@ -8,6 +8,7 @@ RUN apk add --update apache2 php${PHPVERSION}-apache2 php${PHPVERSION} && \
         mkdir /run/apache2/ && \
         rm -rf /var/www/localhost/htdocs/index.html 
 
+COPY www/ /var/www/localhost/htdocs/
 EXPOSE 80/tcp
 VOLUME /var/www/localhost/htdocs/
 
