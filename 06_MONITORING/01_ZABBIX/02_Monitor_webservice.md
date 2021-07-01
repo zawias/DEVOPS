@@ -1,10 +1,8 @@
 ## Monitor external application
-Add a new web_scenario and monitor the avability of the service under the address:
-
-https://sparkling-leaf-9884.getsandbox.com:443/MONITOR
+Monitor python app deployed on your cubernetes service - monitor `/healthz` endpoint.
 
 
-* Add a monitoring item **HTTP agent**
-* Make it return **200** (modify the header - Content-Type)
-* Add a slack trigger to inform about a failure (different code than 200) - https://www.zabbix.com/integrations/slack and send a notification to you private message
-  
+* Add a slack trigger to inform about a failure (different code than 200) - https://www.zabbix.com/integrations/slack and send a notification to you private message -> TOKEN: xoxb-2174204336530-2230426749813-ADj16I059sr68ALFqnGhxAbD
+* remove the python service to trigger the alarm  
+
+
