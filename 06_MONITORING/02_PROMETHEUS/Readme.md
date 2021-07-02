@@ -1,6 +1,6 @@
 # Prometheus
 
-## Lunch docker-compose and look ad prometheus :)
+## Lunch docker-compose and look at prometheus :)
 ```
 docker-compose up -d
 ```
