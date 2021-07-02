@@ -46,7 +46,7 @@ pipeline {
 
                         sh '''
                             kubeval --strict 04_KUBERNETES/04_service/solution/*
-                            kubectl apply -f 04_KUBERNETES/04_service
+                            kubectl apply -f 04_KUBERNETES/04_service/solution/
                             if ! kubectl rollout status deployment $CI_APP_NAME; then
                                 kubectl rollout undo deployment $CI_APP_NAME;
                                 kubectl rollout status deployment $CI_APP_NAME;
