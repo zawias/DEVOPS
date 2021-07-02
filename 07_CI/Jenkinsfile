@@ -11,8 +11,8 @@ pipeline {
     stage('Building image') {
       steps{
         script {
-            dir('day1/03_build_python_image/') {
-                dockerImage = docker.build registry, '-f Dockerfile.solution .'
+            dir('03_DOCKER/11_onbuild/') {
+                dockerImage = docker.build registry, '-f Dockerfile .'
             }
         }
       }
@@ -45,8 +45,8 @@ pipeline {
 
 
                         sh '''
-                            kubeval --strict day3/00_task/solution/*
-                            kubectl apply -f day3/00_task/solution
+                            kubeval --strict 04_KUBERNETES/04_service/solution/*
+                            kubectl apply -f 04_KUBERNETES/04_service
                             if ! kubectl rollout status deployment $CI_APP_NAME; then
                                 kubectl rollout undo deployment $CI_APP_NAME;
                                 kubectl rollout status deployment $CI_APP_NAME;
