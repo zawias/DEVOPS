@@ -1,4 +1,4 @@
-FROM base-python:on-build
+FROM krajewskim/python-api:base
 EXPOSE 5002
 ENTRYPOINT ["python"]
 CMD ["main.py"]
