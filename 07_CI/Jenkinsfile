@@ -30,7 +30,7 @@ pipeline {
         sh "docker rmi $registry"
       }
     }
-    stage('List pods') {
+    stage('Kuernetes Deploy') {
             agent {
                 docker {
                     image 'krajewskim/kubectl'
