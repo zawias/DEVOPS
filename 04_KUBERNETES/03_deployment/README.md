@@ -13,7 +13,7 @@ add `env` list
 
 ```sh
 kubectl rollout history deployments/nginx-deployment
-kubectl apply -f deployment.yaml --record
+kubectl apply -f deployment.yaml
 
 kubectl rollout status deployment/nginx-deployment
 kubectl rollout history deployment/nginx-deployment --revision=1
@@ -40,7 +40,7 @@ kubectl rollout history deployments/nginx-deployment
 kubectl exec -ti $(kubectl get pods -l app=myapp -o jsonpath='{.items[0].metadata.name}') -- env|grep TEST_ENV
 
 kubectl rollout undo deployment/nginx-deployment --to-revision=2
-kubectl exec -ti <container_name> -- env|grep TEST_ENV
+kubectl exec -ti $(kubectl get pods -l app=myapp -o jsonpath='{.items[0].metadata.name}') -- env|grep TEST_ENV
 ```
 
 # Scale deployment 
