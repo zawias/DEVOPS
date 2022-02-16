@@ -33,7 +33,7 @@ pipeline {
     stage('Kuernetes Deploy') {
             agent {
                 docker {
-                    image 'poznajkubernetes/kubectl:v1.14'
+                    image 'krajewskim/kubectl'
                     args '-v /tmp:/tmp --entrypoint='
                 }
             }
