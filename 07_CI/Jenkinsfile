@@ -40,7 +40,7 @@ pipeline {
             steps{
                 withKubeConfig(credentialsId: 'docker-for-desktop', namespace: 'default') {
 
-                        sh 'kubectl create namespace $KUBECTL_NAMESPACE -o yaml --dry-run | kubectl apply -f -'
+                        sh 'kubectl create namespace $KUBECTL_NAMESPACE -o yaml --dry-run=client | kubectl apply -f -'
                         sh 'kubectl config set-context $(kubectl config current-context) --namespace=$KUBECTL_NAMESPACE'
 
 
