@@ -12,6 +12,7 @@ pipeline {
       steps{
         script {
             dir('03_DOCKER/11_onbuild/') {
+                sh "docker image build -t base-python:on-build Base"
                 dockerImage = docker.build registry, '-f Dockerfile .'
             }
         }
