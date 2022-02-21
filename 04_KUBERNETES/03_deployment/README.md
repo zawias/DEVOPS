@@ -1,7 +1,7 @@
 # Create deployment
 
 ```sh
-kubectl create -f deployment.yaml
+kubectl apply -f deployment.yaml
 kubectl get rs
 kubectl get pods
 kubectl scale deployment/nginx-deployment --replicas=0
