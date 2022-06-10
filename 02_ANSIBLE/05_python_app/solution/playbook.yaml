@@ -11,6 +11,7 @@
         - python3 
         - redis 
         - python3-pip
+        - uvicorn
       update_cache: yes
       install_recommends: no
   - name: copy python app

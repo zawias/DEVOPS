@@ -2,7 +2,7 @@
 
 ```sh
 apt-get update
-apt-get install --no-install-recommends -y python3 redis python3-pip
+apt-get install --no-install-recommends -y python3 redis python3-pip uvicorn
 ```
 
 ### In the application dir
@@ -12,10 +12,11 @@ pip3 install --no-cache-dir -r requirements.txt
 
 ### To run the app
 
+Enter the dir with the app `Python_app`
 Define REDIS_HOST env and run the app
 ```sh
 export REDIS_HOST=127.0.0.1
-python3 main.py
+uvicorn main:app --host 0.0.0.0 --port 5002
 ```
 
 Application is running on port 5002 and delivers to endpoints
@@ -39,9 +40,10 @@ Description=Python API
 After=network.target
 
 [Service]
+WorkingDirectory=/root/DEVOPS/01_BASH/Python_app
 Type=simple
 Environment=REDIS_HOST=127.0.0.1
-ExecStart=/usr/bin/python3 /usr/bin/main.py
+ExecStart=/usr/bin/uvicorn main:app --host 0.0.0.0 --port 5002
 StandardInput=tty-force
 
 [Install]
