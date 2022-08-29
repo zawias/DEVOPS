@@ -37,12 +37,12 @@ async def healthz():
 async def info():
     r = get_redis()
     counter =  r.get('counter')
+    started_at = time.time()
     if counter is None:
         counter = 0
     else:
         counter = counter.decode('utf-8')
     LOGGER.info('counter var is %s', counter)
-    started_at = time.time()
     duration = time.time() - started_at
     LOGGER.debug('Request took %s', duration)
     return {"message": "Counter", "hostname": hostname, "value": counter}
