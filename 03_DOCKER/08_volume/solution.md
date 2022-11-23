@@ -7,7 +7,7 @@
 # Attach volume
 
 ```
-docker built -t volume_ls 01_volume_ls
+docker build -t volume_ls 01_volume_ls
 docker run volume_ls
 touch /tmp/something
 docker run -v /tmp:/data volume_ls /data
