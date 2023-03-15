@@ -8,7 +8,7 @@
 
 - create new network
 - run both redis & python with `--network <name>`
-- redis container should have name `redis` or `REDIS_HOST` should be set in python
+- redis container should have name `redis` or `REDIS_HOST` should be set in python to point redis container name (container should be named)
 - don't expose port on redis
 
 
@@ -25,7 +25,7 @@ curl 127.0.0.1:5002/api/v1/info
 - list volume - find one created by redis
 *Use  container inspect*
 ```
--f "{{ (index .Mounts 0).Name }}"
+-f "{{ (index .Mounts 0) }}"
 ```
 - STOP container
 - wait...
