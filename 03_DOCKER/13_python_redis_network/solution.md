@@ -13,8 +13,8 @@ docker network list
 
 ```
 docker network create python
-docker run -d --network python redis:alpine
-docker run -d --network python -p 5002:5002 python-api:redis
+docker run -d --network python --name redis-service redis:alpine
+docker run -d --network python -e REDIS_HOST=redis-service -p 5002:5002 python-api:redis
 ```
 
 
@@ -31,7 +31,7 @@ curl 127.0.0.1:5002/api/v1/info
 
 *Use  container inspect*
 ```
-docker inspect <?> -f "{{ (index .Mounts 0).Name }}"
+docker inspect <?> -f "{{ (index .Mounts 0) }}"
 ```
 - STOP container
 - wait...
@@ -44,7 +44,6 @@ docker inspect <?> -f "{{.ContainerConfig.Volumes}}"
 ```
 - create redis again attached to volume - check counter
 
-docker run -d --network python -v <?>:/data redis:alpine
 
 # Clean up
 - remove containers
