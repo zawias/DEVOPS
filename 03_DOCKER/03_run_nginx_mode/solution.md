@@ -19,7 +19,7 @@ docker rm mynginx
 ## start container with multiple env variables
 
 ```
-docker run -d --name mynginx -e user=maciej topic=workshops nginx
+docker run -d --name mynginx -e user=maciej -e topic=workshops nginx
 ```
 
 ## display env variables
