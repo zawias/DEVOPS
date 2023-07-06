@@ -1,7 +1,7 @@
 # Compose task
 
 
-- run both redis
+- run both redis and python-api:redis
 - redis container should have name `redis` or `REDIS_HOST` should be set in python
 - don't expose port on redis
 
