@@ -21,6 +21,6 @@ docker volume create my-volume
 docker volume ls
 docker run -d -it -v my-volume:/data:ro alpine
 docker run -d -it -v my-volume:/data alpine
-docker exec -it <?> bash
+docker exec -it <?> sh
 
 ```
