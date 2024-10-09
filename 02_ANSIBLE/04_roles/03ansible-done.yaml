@@ -1,0 +1,38 @@
+- name: Install Python App
+  remote_user: root
+  hosts: all
+  gather_facts: false
+  vars:
+    APP_DIR: /app 
+
+  tasks:
+  - name: Install packages
+    ansible.builtin.apt:
+      name:
+        - python3
+        - redis
+        - python3-pip
+        - uvicorn
+      update_cache: true
+      install_recommends: false
+  - name: Copy python app to {{ APP_DIR }}
+    ansible.builtin.copy:
+      src: /root/DEVOPS/01_BASH/Python_app/
+      dest: "{{ APP_DIR }}/"
+  - name: Install specified python requirements
+    ansible.builtin.pip:
+      requirements: ./requirements.txt
+      chdir: "{{ APP_DIR }}"
+  - name: Template a file to /lib/systemd/system/python-api.service
+    ansible.builtin.template:
+      src: ./python-service.tpl
+      dest: /lib/systemd/system/python-api.service
+    notify: Restart service
+
+  handlers:
+  - name: Restart service
+    ansible.builtin.systemd_service:
+      state: started
+      name: python-api
+      enabled: true
+      daemon_reload: true

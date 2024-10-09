@@ -1,0 +1,74 @@
+- name: lab04
+  remote_user: root
+  hosts: all
+  vars:
+    APP_DIR= /app
+
+  tasks:
+  - name: install nxinx
+    ansible.builtin.apt:
+      name: 
+        - nginx
+        - python3 
+        - redis 
+        - python3-pip 
+        - uvicorn
+      update_cache: yes
+      install-recommends: false
+    when:
+      - ansible_facts['distribution'] == "Ubuntu"
+
+  - name: copy app
+    ansible.builtin.copy: 
+      src: /root/DEVOPS/01_BASH/Python_app/
+      dest: "{{ APP_DIR }}"
+
+  - name: Install app
+    ansible.builtin.pip:
+      requirements: /root/DEVOPS/01_BASH/Python_app/requirements.txt
+      chdir: "{{APP_DIR}}"
+
+  - name: add service
+    ansible.builtin.shell:
+      cmd: echo "[Unit]
+          Description=Python API
+          After=network.target
+
+          [Service]
+          WorkingDirectory=/root/DEVOPS/01_BASH/Python_app
+          Type=simple
+          Environment=REDIS_HOST=127.0.0.1
+          ExecStart=/usr/bin/uvicorn main:app --host 0.0.0.0 --port 5002
+          StandardInput=tty-force
+
+          [Install]
+          WantedBy=multi-user.target" > /lib/systemd/system/python-api.service
+
+  - name: Uruchom nginx przez systemctl
+    systemd:
+        name: nginx
+        state: started
+        enabled: true
+  
+  # - name: remove nginx conf
+  #   ansible.builtin.file:
+  #     path: /var/www/html/index.nginx-debian.html
+  #     state: absent
+
+  # - name: copy nginx conf
+  #   ansible.builtin.copy:
+  #     src: /root/DEVOPS/02_ANSIBLE/02_playbook/website/index.html
+  #     dest: /var/www/html/
+  #     owner: root
+  #     group: root
+  #     mode: '0644'
+
+  # - name: show date
+  #   ansible.builtin.shell:
+  #     cmd: date > /root/date.txt
+
+  # - name: downloand file
+  #   ansible.builtin.fetch:
+  #     src: /root/date.txt
+  #     dest: /root/DEVOPS/02_ANSIBLE/03_facts/
+  #     flat: true
