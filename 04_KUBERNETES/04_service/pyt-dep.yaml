@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python
+  labels:
+    szkolenie: devops
+spec:
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: python
+  template:
+    metadata:
+      labels:
+        app: python
+        szkolenie: devops
+    spec:
+      containers:
+      - name: python
+        image: krajewskim/python-api:new
+        resources: {}
+        ports:
+        - containerPort: 5002
+          name: api
+        env:
+          - name: REDIS_HOST
+            value: redis-service
+          - name: LOG_LEVEL
+            value: DEBUG
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: api
+        readinessProbe:
+          tcpSocket:
+            port: api

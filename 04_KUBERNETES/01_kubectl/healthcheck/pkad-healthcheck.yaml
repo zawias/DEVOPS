@@ -2,13 +2,15 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: pkad-health
+  labels: 
+    szkolenie: pkad
 spec:
   containers:
   - name: pkad
     image: poznajkubernetes/pkad:blue
     resources: {}
     ports:
-    - containerPort: 8080
+    - containerPort: 80
     livenessProbe:
       httpGet:
         path: /healthy

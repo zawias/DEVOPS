@@ -1,25 +1,25 @@
 services:
-  db:
-    image: mariadb:10
+  redis:
+    image: redis
     volumes:
-      - db_data:/var/lib/mysql
+      - db_data:/data
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: somewordpress
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
 
-  wordpress:
+  python:
     depends_on:
-      - db
-    image: wordpress:latest
+      redis:
+        condition: service_healthy
+    image: python-api
     ports:
-      - "80:80"
+      - 5002:5002
     restart: always
     environment:
-      WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: wordpress
+      REDIS_HOST: redis
 volumes:
   db_data:
+  
